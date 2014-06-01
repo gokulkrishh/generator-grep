@@ -1,5 +1,5 @@
 {
-  "name": "",
+  "name": "<%= _.slugify(appName) %>",
   "version": "0.0.0",
   "description": "",
   "dependencies": {},
@@ -25,6 +25,7 @@
     "node" : ">=0.10.3"
   },
   "scripts": {
-    "postinstall": "bower install"
+    "postinstall": "bower install",
+    "start": "gulp"
   }
 }

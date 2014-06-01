@@ -24,22 +24,28 @@ var GrepGenerator = yeoman.generators.Base.extend({
     var done = this.async();
 
     // Have Yeoman greet the user.
-    this.log(yosay('Welcome to this Awesome grep generator using Gulp.js'));
+    this.log(yosay('Welcome to Grep Generator powered by \n Gulp.js'));
 
-    var prompts = [{
+    var prompts = [
+    {
+    	type: 'input',
+    	name: 'appName',
+  		message: 'Provide a name to your application ' +  chalk.red('(optional)') + ' ?'
+  	},
+    {
       type: 'confirm',
-      name: 'Which one',
+      name: 'angularJS',
       message: 'Would you like to proceed with AngularJS ?',
-      default: true
+      default: false
     },
     {
       type: 'checkbox',
-      name: 'Libraries',
+      name: 'library',
       message: 'Which libraries you would like to install ?',
       choices : [{
       	value   : 'jquery',
       	name    : 'Jquery',
-      	checked : true
+      	checked: true
       },
       {
       	value   : 'bootstrap',
@@ -49,7 +55,30 @@ var GrepGenerator = yeoman.generators.Base.extend({
     }];
 
     this.prompt(prompts, function (props) {
-      this.someOption = props.someOption;
+    	var done    = this.async(),
+    			library = props.library;
+
+    	this.appName = props.appName;
+    	
+      if (props.angularJS) {
+      	this.angularJS = true;
+      }
+      else if (library[0] === 'jquery' && library[1] === 'bootstrap') {
+      	this.jquery = true;
+      	this.bootstrap = true;
+      }
+      else if (library[0] === 'jquery') {
+      	this.jquery = true;
+      }
+      else if (library[1] === 'bootstrap') {
+      	this.bootstrap = true;
+      }
+      else {
+      	this.log(chalk.bgRed.bold.bgYellow('\n \t You haven\'t selected any libraries \t \t \n'));
+      	this.angularJS = false;
+      	this.jquery = false;
+      	this.bootstrap = false;
+      }
       done();
     }.bind(this));
   },
