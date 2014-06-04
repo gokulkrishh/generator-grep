@@ -59,9 +59,10 @@ var GrepGenerator = yeoman.generators.Base.extend({
     			library = props.library;
 
     	this.appName = props.appName;
-    	
+    	this.isAngularJS = false;
+
       if (props.angularJS) {
-      	this.angularJS = true;
+      	this.isAngularJS = true;
       }
       else if (library[0] === 'jquery' && library[1] === 'bootstrap') {
       	this.jquery = true;
@@ -84,6 +85,7 @@ var GrepGenerator = yeoman.generators.Base.extend({
   },
 
   app: function () {
+
     //development directory
     this.mkdir('app');
     this.mkdir('app/css');
@@ -91,7 +93,7 @@ var GrepGenerator = yeoman.generators.Base.extend({
    	this.mkdir('app/js');    
     this.mkdir('app/js/lib');
     
-    //copying dependency files    
+    //copying dependency files 
     this.copy('_package.json', 'package.json');
     this.copy('_bower.json', 'bower.json');
     this.copy('_bowerrc', '.bowerrc');

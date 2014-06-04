@@ -1,9 +1,10 @@
 {
   "name": "<%= _.slugify(appName) %>",
   "version": "0.0.0",
-  "dependencies": {
-  	"jquery" : "*"<% if (jquery) { %>,
-  	"bootstrap" : "*"<% } %>
+  "dependencies": { <% if(isAngularJS) { %>
+  	"angular" : "*",<% } if(jquery) { %>
+  	"jquery": "*",<% } if(bootstrap) { %>
+  	"bootstrap" : "*" <% } %>
   },
   "devDependencies" : {}
 }
