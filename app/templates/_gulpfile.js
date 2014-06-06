@@ -6,6 +6,7 @@ var gulp 	  	= require('gulp'),
 	concat 	  	= require('gulp-concat'),
 	connect  	= require('gulp-connect'),
 	gulpif 	  	= require('gulp-if'),
+	imagemin 	= require('gulp-imagemin'),
 	jshint 	  	= require('gulp-jshint'),
 	refresh  	= require('gulp-livereload'),
 	minifycss 	= require('gulp-minify-css'),
@@ -63,8 +64,7 @@ var serverConfig = {
 
 //zip config
 var date  	   = new Date(),
-	dateString = date.toDateString(); //Thu Jun 05 2014
-
+	dateString = date.toDateString();
 
 /**================================================
   		Server & livereload using gulp-connect
@@ -95,7 +95,7 @@ gulp.task('html', function() {
 gulp.task('sass', function() {
 	console.log(hint('\n --------- Running SASS tasks ------------------------------------------->>>'));
     return gulp.src(['app/css/app.scss'])
-    .pipe(sass({onError: callback})) //to show error log add this --> errLogToConsole: true
+    .pipe(sass({onError: callback}))
     .pipe(gulp.dest(src.sass))
     .pipe(connect.reload());
 });
@@ -139,6 +139,16 @@ gulp.task('concat-bower', function() {
 	.pipe(gulp.dest(build.js));
 });
 
+/**================================================
+  			Images minification
+===================================================*/
+
+gulp.task('img-min', function () {
+	console.log(hint('\n --------- Image Minification -------------------------------------------->>> \n'));
+	return gulp.src(['app/images/*.*'])
+	.pipe(imagemin())
+	.pipe(gulp.dest(build.images));
+});
 
 /**===============================================
   		Watch -- all files
@@ -180,13 +190,13 @@ gulp.task('zip', function() {
 
 gulp.task('build', function() {
 	console.log(hint('\n --------- Build Development Mode  -------------------------------------->>> \n'));
-	runSequence('html', 'scripts', 'css', 'concat-bower', 'server', 'watch');
+	runSequence('html', 'scripts', 'css', 'img-min', 'concat-bower', 'server', 'watch');
 });
 
 gulp.task('prod', function() {
 	console.log(hint('\n --------- Build Production Mode  --------------------------------------->>> \n'));
 	production = true;
-	runSequence('html', 'scripts', 'css', 'concat-bower', 'server', 'watch');
+	runSequence('html', 'scripts', 'css', 'img-min', 'concat-bower', 'server', 'watch');
 });
 
 

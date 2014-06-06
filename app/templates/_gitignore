@@ -1,6 +1,8 @@
 node_modules/
-bower_components/
-*.log
-zip/
 build/
 .DS_Store
+npm-debug.log
+zip/
+.sass-cache
+sass/
+bower_components/

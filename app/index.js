@@ -24,7 +24,7 @@ var GrepGenerator = yeoman.generators.Base.extend({
     var done = this.async();
 
     // Have Yeoman greet the user.
-    this.log(yosay('Welcome to Grep Generator powered by \n Gulp.js'));
+    this.log(yosay('Welcome to Grep Generator powered by \n Yeoman && Gulp.js'));
 
     var prompts = [
     {
@@ -98,6 +98,7 @@ var GrepGenerator = yeoman.generators.Base.extend({
     this.copy('_bower.json', 'bower.json');
     this.copy('_bowerrc', '.bowerrc');
     this.copy('_gulpfile.js', 'gulpfile.js');
+    this.copy('_app.scss', 'app/css/app.scss');
   },
 
   projectfiles: function () {
