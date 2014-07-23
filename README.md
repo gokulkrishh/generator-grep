@@ -1,27 +1,15 @@
-# generator-grep [![Build Status](https://secure.travis-ci.org/gokulkrishh/generator-grep.png?branch=master)](https://travis-ci.org/gokulkrishh/generator-grep)
+# generator-grep [![Build Status](https://secure.travis-ci.org/gokulkrishh/generator-grep.png?branch=master)]
 
 > [Yeoman](http://yeoman.io) generator
 
 
 ## Getting Started
 
-### What is Yeoman?
-
-Trick question. It's not a thing. It's this guy:
-
-![](http://i.imgur.com/JHaAlBJ.png)
-
-Basically, he wears a top hat, lives in your computer, and waits for you to tell him what kind of application you wish to create.
-
-Not every new computer comes with a Yeoman pre-installed. He lives in the [npm](https://npmjs.org) package repository. You only have to ask for him once, then he packs up and moves into your hard drive. *Make sure you clean up, he likes new and shiny things.*
-
 ```bash
 $ npm install -g yo
 ```
 
 ### Yeoman Generators
-
-Yeoman travels light. He didn't pack any generators when he moved in. You can think of a generator like a plug-in. You get to choose what type of application you wish to create, such as a Backbone application or even a Chrome extension.
 
 To install generator-grep from npm, run:
 
@@ -32,15 +20,57 @@ $ npm install -g generator-grep
 Finally, initiate the generator:
 
 ```bash
-$ yo grep
+$ yo grep <appname>
 ```
 
-### Getting To Know Yeoman
+Folder Structure:
+=====================
+    
+    1. Copy all your existing files to app/ (or) create your own files in folder structure like below
+    
+        app/           (development directory)
+          -js/         (js files)
+          -lib/        (library files)
+          -css/        (both sass and css files & import sass files to app.scss)
+          -images/     (images)
+          -fonts/	   (fonts goes here)
+    
+    2. Import your SASS files to app.scss and thats it.
 
-Yeoman has a heart of gold. He's a person with feelings and opinions, but he's very easy to work with. If you think he's too opinionated, he can be easily convinced.
+    3. Enter gulp in terminal to see the magic.
+    
+Run following command:
+========================
+    
+    1. gulp (dev mode)
+    2. gulp prod (production mode) to uglify JS files and minify both CSS & HTML files
 
-If you'd like to get to know Yeoman better and meet some of his friends, [Grunt](http://gruntjs.com) and [Bower](http://bower.io), check out the complete [Getting Started Guide](https://github.com/yeoman/yeoman/wiki/Getting-Started).
+To install new library through bower:
+======================================
 
+    Again make sure Node && Bower installed
+    
+    bower install <library-name> --save-dev (To install as admin use sudo)
+
+Manually add library:
+=====================
+
+    1. Add library for eg: modernizr
+
+        app/
+          -js/ (add .js file here)
+
+Seperate gulp commands:
+=========================
+
+    1. gulp<space>zip           -- To create a zip folder of your build with date
+    2. gulp<space>html          -- To copy html files to build/
+    3. gulp<space>css           -- To convert sass to css and concat into one single file
+    4. gulp<space>scripts       -- To lint and concat into one single file
+    5. gulp<space>img-min       -- To minify image files
+    6. gulp<space>concat-bower  -- To concat all bower dependencies in one single file
+    7. gulp<space>watch         -- To watch all file changes and do all above tasks
+    7. gulp<space>browserSync   -- To check responsiveness in all browser
 
 ## License
 
