@@ -1,9 +1,16 @@
 {
   "name": "generator-grep",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Yeoman generator",
   "license": "MIT",
-  "main": "app/index.js",
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "dependencies": {
+    "yeoman-generator": "^0.17.1",
+    "yosay": "^0.3.0",
+    "chalk": "*"
+  },
   "repository": "gokulkrishh/generator-grep",
   "author": {
     "name": "Gokulakrishnan",

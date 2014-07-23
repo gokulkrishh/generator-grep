@@ -1,117 +1,126 @@
 'use strict';
 
-//dependencies
-var util    = require('util'),
-    path    = require('path'),
-    yeoman  = require('yeoman-generator'),
-    yosay   = require('yosay'),
-    chalk   = require('chalk');
+var yeoman = require('yeoman-generator'),
+	yosay  = require('yosay'),
+	chalk  = require('chalk');
 
 
+var generator = yeoman.generators.Base.extend({
 
-var GrepGenerator = yeoman.generators.Base.extend({
-  init: function () {
-    this.pkg = require('../package.json');
+	init : function () {
+		this.log(yosay(chalk.green.bold('Welcome to Grep WebApp tool powered by yeoman && gulp')));
+		this.log(chalk.yellow('Author : gokulkrishh (http://github.com/gokulkrishh) \n'));
 
-    this.on('end', function () {
-      if (!this.options['skip-install']) {
-        this.installDependencies(); //will install both  bower and npm dependencies
-      }
-    });
-  },
+		//adding flag --ng for angular
+		this.option('ng', {
+			desc     : 'Angular Web application',
+			type     : String,
+			required : true
+		});
 
-  askFor: function () {
-    var done = this.async();
+		//In end install dependencies
+		this.on('end', function () {
+			if(!this.options['skip-install']) {
+				this.installDependencies();
+			}
+		});
+	},
 
-    // Have Yeoman greet the user.
-    this.log(yosay('Welcome to Grep Generator powered by \n Yeoman && Gulp.js'));
+	askFor : function () {
+		var done = this.async();
 
-    var prompts = [
-    {
-    	type: 'input',
-    	name: 'appName',
-  		message: 'Provide a name to your application ' +  chalk.red('(optional)') + ' ?'
-  	},
-    {
-      type: 'confirm',
-      name: 'angularJS',
-      message: 'Would you like to proceed with AngularJS ?',
-      default: false
-    },
-    {
-      type: 'checkbox',
-      name: 'library',
-      message: 'Which libraries you would like to install ?',
-      choices : [{
-      	value   : 'jquery',
-      	name    : 'Jquery',
-      	checked: true
-      },
-      {
-      	value   : 'bootstrap',
-      	name    : 'Bootstrap',
-      	checked : false
-      }]
-    }];
+		this.prompt({
+			type 	: 'input',
+			name 	: 'appname',
+			message : 'Your app name',
+			default : this.appname
+		}, function (ans) {
 
-    this.prompt(prompts, function (props) {
-    	var done    = this.async(),
-    			library = props.library;
+			this.appname = ans.appname;
+			done();
+		}.bind(this));
+	},
+	askLib : function () {
+		var done = this.async();
 
-    	this.appName = props.appName;
-    	this.isAngularJS = false;
+		var prompts = [{
+			type 	: 'checkbox',
+			name 	: 'libraries',
+			message : 'What else you want to install ? ',
+			choices : [
+				// {
+				// 	name    : 'none',
+				// 	value   : 'none',
+				// 	checked : false
+				// }, 
+				{
+					name 	: 'jquery',
+					value   : 'addJquery',
+					checked : true
+				}, 
+				{
+					name 	: 'bootstrap',
+					value   : 'addBootstrap',
+					checked : false
+				}]
+			}];
 
-      if (props.angularJS) {
-      	this.isAngularJS = true;
-      }
-      else if (library[0] === 'jquery' && library[1] === 'bootstrap') {
-      	this.jquery = true;
-      	this.bootstrap = true;
-      }
-      else if (library[0] === 'jquery') {
-      	this.jquery = true;
-      }
-      else if (library[1] === 'bootstrap') {
-      	this.bootstrap = true;
-      }
-      else {
-      	this.log(chalk.bgRed.bold.bgYellow('\n \t You haven\'t selected any libraries \t \t \n'));
-      	this.angularJS = false;
-      	this.jquery = false;
-      	this.bootstrap = false;
-      }
-      done();
-    }.bind(this));
-  },
+		this.prompt(prompts, function (ans) {
 
-  app: function () {
+			function include (hasLib) {
+				return ans && ans.libraries.indexOf(hasLib) !== -1;
+			}
 
-    //development directory
-    this.mkdir('app');
-    this.mkdir('app/css');
-    this.mkdir('app/fonts');
-   	this.mkdir('app/js');    
-    this.mkdir('app/js/lib');
-    
-    //copying dependency files 
-    this.copy('_package.json', 'package.json');
-    this.copy('_bower.json', 'bower.json');
-    this.copy('_bowerrc', '.bowerrc');
-    this.copy('_gulpfile.js', 'gulpfile.js');
-    this.copy('_app.scss', 'app/css/app.scss');
-  },
+			this.jquery    = include('addJquery');
+			this.bootstrap = include('addBootstrap');
 
-  projectfiles: function () {
-  	//copying project required files
-    this.copy('_editorconfig', '.editorconfig');
-    this.copy('_jshintrc', '.jshintrc');
-    this.copy('_gitignore', '.gitignore');
+			done();
+		}.bind(this));
+	},
+	bower : function () {
+		var bower = {
+			name 		 : this.appname,
+			description	 : "",
+			dependencies : {}
+		};
 
-    //copy the index.html, js & css files
-    this.copy('_index.html', 'app/index.html');
-    this.copy('_main.js', 'app/js/main.js');
-    this.copy('_styles.css', 'app/css/styles.css');
-  }
+		if (this.jquery) {
+			bower.dependencies['jquery'] = '*';
+		}
+
+		if (this.bootstrap) {
+			bower.dependencies['bootstrap'] = '*';	
+		}
+
+		this.write('bower.json', JSON.stringify(bower, null, 2));
+
+	},
+	appFiles : function () {
+		//creating folder structure
+		this.mkdir('app');
+		this.mkdir('app/css');
+		this.mkdir('app/js');
+		this.mkdir('app/js/lib');
+		this.mkdir('app/fonts');
+		this.mkdir('app/images');
+
+		//copy files
+	    this.copy('_index.html', 'app/index.html');
+	    this.copy('_main.js', 'app/js/main.js');
+	    this.copy('_styles.css', 'app/css/styles.css');
+	    this.copy('_app.scss', 'app/css/app.scss');
+	},
+	configFiles : function () {
+		//copy config files
+	    this.copy('_editorconfig', '.editorconfig');
+	    this.copy('_jshintrc', '.jshintrc');
+	    this.copy('_gitignore', '.gitignore');
+	    this.copy('_bowerrc', '.bowerrc');
+
+	    //copy gulp & pkg.json file
+	    this.copy('_package.json', 'package.json');
+	    this.copy('_gulpfile.js', 'gulpfile.js');
+	}
 });
 
-module.exports = GrepGenerator;
+module.exports = generator;
