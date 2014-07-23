@@ -16,7 +16,14 @@ To install generator-grep from npm, run:
 $ npm install -g generator-grep
 ```
 
-Finally, initiate the generator:
+Before, proceed to create application:
+
+```bash
+$ mkdir <folder-name>
+$ cd <folder-name>
+```
+
+Finally, create application using below command:
 
 ```bash
 $ yo grep <appname>
@@ -41,7 +48,7 @@ Folder Structure:
 Run following command:
 ========================
     
-    1. gulp (dev mode)
+    1. gulp (dev mode) - default is dev mode
     2. gulp prod (production mode) to uglify JS files and minify both CSS & HTML files
 
 To install new library through bower:
