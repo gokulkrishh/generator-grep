@@ -29,6 +29,17 @@ Finally, create application using below command:
 $ yo grep <appname>
 ```
 
+Everything is set, check npm and bower dependencies are installed, if not:
+
+```bash
+$ npm install (sudo to run as admin)
+$ bower install (sudo to run as admin)
+```
+
+```bash
+$ gulp (In the command to see the magic)
+```
+
 Folder Structure:
 =====================
     
