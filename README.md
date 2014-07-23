@@ -16,7 +16,7 @@ To install generator-grep from npm, run:
 $ npm install -g generator-grep
 ```
 
-Before, proceed to create application:
+Before, proceeding to create new application:
 
 ```bash
 $ mkdir <folder-name>
