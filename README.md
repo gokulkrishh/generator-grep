@@ -1,7 +1,6 @@
-# generator-grep [![Build Status](https://secure.travis-ci.org/gokulkrishh/generator-grep.png?branch=master)]
+# Generator-grep
 
-> [Yeoman](http://yeoman.io) generator
-
+    A web application tool powered by yeoman and gulp.
 
 ## Getting Started
 
