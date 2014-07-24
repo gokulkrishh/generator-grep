@@ -11,6 +11,12 @@
     "yosay": "^0.3.0",
     "chalk": "*"
   },
+  "devDependencies": {
+    "mocha": "*"
+  },
+  "peerDependencies": {
+    "yo": ">=1.0.0"
+  },
   "repository": "gokulkrishh/generator-grep",
   "author": {
     "name": "Gokulakrishnan",
@@ -25,20 +31,5 @@
   },
   "files": [
     "app"
-  ],
-  "keywords": [
-    "yeoman-generator"
-  ],
-  "dependencies": {
-    "yeoman-generator": "~0.16.0",
-    "chalk": "~0.4.0",
-    "yosay": "^0.1.0",
-    "bower": "*"
-  },
-  "devDependencies": {
-    "mocha": "*"
-  },
-  "peerDependencies": {
-    "yo": ">=1.0.0"
-  }
+  ]
 }
