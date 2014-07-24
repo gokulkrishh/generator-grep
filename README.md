@@ -19,7 +19,7 @@ $ npm install -g generator-grep
 Before, proceeding to create new application:
 
 ```bash
-$ mkdir <folder-name> && $_
+$ mkdir <folder-name> && cd $_
 ```
 
 Finally, use below command to create new app:
@@ -93,7 +93,7 @@ Seperate gulp commands:
     5. gulp<space>img-min       -- To minify image files
     6. gulp<space>concat-bower  -- To concat all bower dependencies in one single file
     7. gulp<space>watch         -- To watch all file changes and do all above tasks
-    7. gulp<space>browserSync   -- To check responsiveness in all browser
+    8. gulp<space>browserSync   -- To check responsiveness in all browser
 
 ## License
 
