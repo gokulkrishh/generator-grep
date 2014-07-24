@@ -19,11 +19,10 @@ $ npm install -g generator-grep
 Before, proceeding to create new application:
 
 ```bash
-$ mkdir <folder-name>
-$ cd <folder-name>
+$ mkdir <folder-name> && $_
 ```
 
-Finally, create application using below command:
+Finally, use below command to create new app:
 
 ```bash
 $ yo grep <appname>
@@ -50,7 +49,14 @@ Folder Structure:
           -lib/        (library files)
           -css/        (both sass and css files & import sass files to app.scss)
           -images/     (images)
-          -fonts/	   (fonts goes here)
+          -fonts/      (fonts goes here)
+          
+          (if your app is angular, then it also will have below struture)
+
+          -js/controllers (all controllers files goes here)
+          -js/services
+          -js/factory 
+          -js/filters 
     
     2. Import your SASS files to app.scss and thats it.
 
