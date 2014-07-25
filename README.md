@@ -101,7 +101,7 @@ Seperate gulp commands:
 ## License
 
 The MIT License
-Copyright (c) 2014 Aamir Shah (www.gokulkrishh.in).
+Copyright (c) 2014 gokulakrishnan (www.gokulkrishh.in).
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
