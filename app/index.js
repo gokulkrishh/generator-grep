@@ -32,7 +32,7 @@ var generator = yeoman.generators.Base.extend({
 		this.prompt({
 			type 	: 'input',
 			name 	: 'appname',
-			message : 'Your app name',
+			message : 'Your application name',
 			default : this.appname
 		}, function (ans) {
 
@@ -52,7 +52,7 @@ var generator = yeoman.generators.Base.extend({
 					name 	: 'jquery',
 					value   : 'addJquery',
 					checked : true
-				}, 
+				},
 				{
 					name 	: 'bootstrap',
 					value   : 'addBootstrap',
@@ -77,10 +77,15 @@ var generator = yeoman.generators.Base.extend({
 					name 	: 'angular',
 					value   : 'addAngular',
 					checked : true
-				}, 
+				},
 				{
 					name 	: 'angular-route',
 					value   : 'addAngularRoute',
+					checked : true
+				},
+				{
+					name 	: 'angular-resources',
+					value   : 'addAngularResources',
 					checked : true
 				},
 				{
@@ -109,6 +114,7 @@ var generator = yeoman.generators.Base.extend({
 			this.bootstrap 		= include('addBootstrap');
 			this.angular   		= includeNg('addAngular');
 			this.angularRoute 	= includeNg('addAngularRoute');
+			this.angularResource= includeNg('addAngularResources');
 			this.angularUI 		= includeNg('addAngularUI');
 			this.addNgGrid 		= includeNg('addNgGrid');
 
@@ -129,13 +135,13 @@ var generator = yeoman.generators.Base.extend({
 		}
 
 		if (this.bootstrap) {
-			bower.dependencies['bootstrap'] = '*';	
+			bower.dependencies['bootstrap'] = '*';
 		}
 
 		if (this.angular) {
 			bower.dependencies['angular'] = ngVer;
-			
-			//if app is angular	
+
+			//if app is angular
 			this.mkdir('app/templates');
 			this.mkdir('app/js/controllers');
 			this.mkdir('app/js/services');
@@ -147,6 +153,10 @@ var generator = yeoman.generators.Base.extend({
 
 		if (this.angularRoute) {
 			bower.dependencies['angular-route'] = ngVer;
+		}
+
+		if (this.angularResources) {
+			bower.dependencies['angular-resources'] = ngVer;
 		}
 
 		if (this.angularUI) {

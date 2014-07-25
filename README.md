@@ -6,6 +6,8 @@
 
 ```bash
 $ npm install -g yo
+$ npm install -g bower
+$ npm install -g gulp
 ```
 
 To install this tool from npm, run:
@@ -94,6 +96,7 @@ Seperate gulp commands:
     6. gulp<space>concat-bower  -- To concat all bower dependencies in one single file
     7. gulp<space>watch         -- To watch all file changes and do all above tasks
     8. gulp<space>browserSync   -- To check responsiveness in all browser
+    9. gulp<space>server        -- To start local server with live reload
 
 ## License
 

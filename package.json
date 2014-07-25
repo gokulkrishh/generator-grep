@@ -1,7 +1,7 @@
 {
   "name": "generator-grep",
   "version": "0.1.4",
-  "description": "Yeoman generator, generator, frontend, gulp, yeoman, bower",
+  "description": "Yeoman generator, generator, frontend, gulp, yeoman, bower, npm",
   "license": "MIT",
   "keywords": [
     "yeoman-generator"

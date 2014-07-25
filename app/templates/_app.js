@@ -1,3 +1,4 @@
+
 /**===========================================
  		App = <%= _.slugify(appname) %>
 =============================================*/
@@ -8,6 +9,9 @@ var app = angular.module('<%= _.slugify(appname) %>', ['ngRoute']);
 
 app.config(['', function () {
 	'use strict';
+
+
+
 
 }]);
 
