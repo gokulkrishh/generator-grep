@@ -34,10 +34,10 @@ var production = false;
 
 // minify html options
 var opts = {
-	comments: false, 
-	quotes: true, 
-	spare:true, 
-	empty: true, 
+	comments: false,
+	quotes: true,
+	spare:true,
+	empty: true,
 	cdata:true
 };
 
@@ -80,7 +80,6 @@ gulp.task('server', function () {
 gulp.task('html', ['html:root'], function() {
 	console.log(hint('\n --------- Running HTML tasks ------------------------------------------>>>'));
 	return gulp.src(['app/**/*.html', 'app/templates/*.html'])
-		.pipe(plugins.changed(build.root))
 		.pipe(gulpif(production, plugins.minifyHtml(opts)))
 		.pipe(plugins.size())
 		.pipe(gulp.dest(build.root))
@@ -89,8 +88,7 @@ gulp.task('html', ['html:root'], function() {
 
 gulp.task('html:root', function() {
 	console.log(hint('\n --------- Running HTML root tasks ------------------------------------>>>'));
-	return gulp.src(['app/*.html']) //app/index.html
-		.pipe(plugins.changed(build.root))
+	return gulp.src(['app/*.html'])
 		.pipe(gulpif(production, plugins.minifyHtml(opts)))
 		.pipe(plugins.size())
 		.pipe(gulp.dest(build.root))
@@ -104,7 +102,6 @@ gulp.task('html:root', function() {
 gulp.task('sass', function() {
 	console.log(hint('\n --------- Running SASS tasks ------------------------------------------->>>'));
     return gulp.src(['app/css/app.scss'])
-	    .pipe(plugins.changed(src.sass))
 	    .pipe(plugins.sass({onError: callback}))
 	    .pipe(plugins.size())
 	    .pipe(gulp.dest(src.sass))
@@ -119,7 +116,6 @@ var callback = function(err) {
 gulp.task('css', ['sass'], function() {
 	console.log(hint('\n --------- Running CSS tasks -------------------------------------------->>>'));
 	return gulp.src(['app/css/*.css', 'sass/app.css'])
-		.pipe(plugins.changed(src.sass))
 		.pipe(gulpif(production, plugins.minifyCss()))
 		.pipe(plugins.concat('styles.css'))
 		.pipe(plugins.size())
@@ -133,10 +129,9 @@ gulp.task('css', ['sass'], function() {
 
 gulp.task('scripts', function() {
 	console.log(hint('\n --------- Running SCRIPT tasks ----------------------------------------->>>'));
-	return gulp.src(['app/js/**/*.js', 'gulpfile.js']) // 'gulpfile.js'
+	return gulp.src(['app/js/**/*.js'])
 		.pipe(plugins.jshint('.jshintrc'))
 		.pipe(plugins.jshint.reporter(stylish))
-		.pipe(plugins.changed(build.js))
 		.pipe(plugins.concat('all.js'))
 		.pipe(gulpif(production, plugins.uglify()))
 		.pipe(plugins.size())
@@ -190,7 +185,7 @@ gulp.task('img-min', function () {
 
 gulp.task('watch', function() {
 	console.log(hint('\n --------- Watching All Files ------------------------------------------->>> \n'));
-	var html   	= gulp.watch(['app/*.html'], ['html']),
+	var html   	= gulp.watch(['app/*.html', 'app/**/*.html'], ['html']),
 		script 	= gulp.watch(['app/js/**/*.js'], ['scripts']),
 		css    	= gulp.watch(['app/css/*.css'], ['css']),
 		sass   	= gulp.watch(['app/css/*.scss'], ['css']),
