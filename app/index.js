@@ -32,7 +32,7 @@ var generator = yeoman.generators.Base.extend({
 		this.prompt({
 			type 	: 'input',
 			name 	: 'appname',
-			message : 'Your application name',
+			message : 'Your application name ? ',
 			default : this.appname
 		}, function (ans) {
 
@@ -74,11 +74,6 @@ var generator = yeoman.generators.Base.extend({
 				message : 'Which libraries you want to install ? ',
 				choices : [
 				{
-					name 	: 'angular',
-					value   : 'addAngular',
-					checked : true
-				},
-				{
 					name 	: 'angular-route',
 					value   : 'addAngularRoute',
 					checked : true
@@ -86,16 +81,26 @@ var generator = yeoman.generators.Base.extend({
 				{
 					name 	: 'angular-resources',
 					value   : 'addAngularResources',
-					checked : true
+					checked : false
+				},
+				{
+					name 	: 'angular-cookies',
+					value   : 'addAngularCookies',
+					checked : false
+				},
+				{
+					name 	: 'angular-sanitize',
+					value   : 'addAngularSanitize',
+					checked : false
+				},
+				{
+					name 	: 'angular-animate',
+					value   : 'addAngularAnimate',
+					checked : false
 				},
 				{
 					name 	: 'angular-ui',
 					value   : 'addAngularUI',
-					checked : false
-				},
-				{
-					name 	: 'ng-grid',
-					value   : 'addNgGrid',
 					checked : false
 				}]
 			}];
@@ -110,13 +115,18 @@ var generator = yeoman.generators.Base.extend({
 				return ans && ans.ngLibrary.indexOf(hasLib) !== -1;
 			}
 
-			this.jquery    		= include('addJquery');
-			this.bootstrap 		= include('addBootstrap');
-			this.angular   		= includeNg('addAngular');
-			this.angularRoute 	= includeNg('addAngularRoute');
-			this.angularResource= includeNg('addAngularResources');
-			this.angularUI 		= includeNg('addAngularUI');
-			this.addNgGrid 		= includeNg('addNgGrid');
+			this.jquery    			= include('addJquery');
+			this.bootstrap 			= include('addBootstrap');
+
+			if (ans.isNg) {
+				this.angular   			= true;
+				this.angularRoute 		= includeNg('addAngularRoute');
+				this.angularResources 	= includeNg('addAngularResources');
+				this.angularCookies 	= includeNg('addAngularCookies');
+				this.angularAnimate 	= includeNg('addAngularAnimate');
+				this.angularSanitize	= includeNg('addAngularSanitize');
+				this.angularUI 			= includeNg('addAngularUI');
+			}
 
 			done();
 		}.bind(this));
@@ -128,7 +138,7 @@ var generator = yeoman.generators.Base.extend({
 			dependencies : {}
 		};
 
-		var ngVer = '1.2.16';
+		var ngVer = '1.2.6';
 
 		if (this.jquery) {
 			bower.dependencies['jquery'] = '*';
@@ -149,22 +159,31 @@ var generator = yeoman.generators.Base.extend({
 			this.mkdir('app/js/factory');
 			this.mkdir('app/js/filters');
 			this.copy('_app.js', 'app/js/app.js');
-		}
 
-		if (this.angularRoute) {
-			bower.dependencies['angular-route'] = ngVer;
-		}
+			if (this.angularRoute) {
+				bower.dependencies['angular-route'] = ngVer;
+			}
 
-		if (this.angularResources) {
-			bower.dependencies['angular-resources'] = ngVer;
-		}
+			if (this.angularResources) {
+				bower.dependencies['angular-resource'] = '1.2.22';
+			}
 
-		if (this.angularUI) {
-			bower.dependencies['angular-ui'] = '*';
-		}
+			if (this.angularCookies) {
+				bower.dependencies['angular-cookies'] = ngVer;
+			}
 
-		if (this.addNgGrid) {
-			bower.dependencies['ng-grid'] = '*';
+			if (this.angularSanitize) {
+				bower.dependencies['angular-sanitize'] = ngVer;
+			}
+
+			if (this.angularAnimate) {
+				bower.dependencies['angular-animate'] = ngVer;
+			}
+
+			if (this.angularUI) {
+				bower.dependencies['angular-ui'] = '*';
+			}
+
 		}
 
 		this.write('bower.json', JSON.stringify(bower, null, 2));
@@ -177,6 +196,7 @@ var generator = yeoman.generators.Base.extend({
 		this.mkdir('app/js/lib');
 		this.mkdir('app/fonts');
 		this.mkdir('app/images');
+		this.mkdir('bower_components');
 
 		//copy files
 	    this.copy('_index.html', 'app/index.html');

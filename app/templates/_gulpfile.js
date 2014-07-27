@@ -57,7 +57,7 @@ var serverConfig = {
 //bower config
 var bowerConfig = {
 	paths: {
-	    bowerDirectory: 'bower_components',
+	    bowerDirectory: src.bower,
 	    bowerrc: '.bowerrc',
 	    bowerJson: 'bower.json'
 	}
@@ -244,7 +244,7 @@ gulp.task('browserSync', function () {
 gulp.task('zip', function() {
 	var date = new Date().toDateString();
 	console.log(hint('\n --------- Zipping Build Files ------------------------------------------>>> \n'));
-	return gulp.src([build.root + '/*'])
+	return gulp.src([build.root + '/**', build.root + '/**/*'])
 	.pipe(plugins.zip('build-'+ date + '.zip'))
 	.pipe(plugins.size())
 	.pipe(gulp.dest('./zip/'));
