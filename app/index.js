@@ -165,7 +165,7 @@ var generator = yeoman.generators.Base.extend({
 			}
 
 			if (this.angularResources) {
-				bower.dependencies['angular-resource'] = '1.2.22';
+				bower.dependencies['angular-resource'] = ngVer;
 			}
 
 			if (this.angularCookies) {
