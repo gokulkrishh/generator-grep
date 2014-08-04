@@ -1,6 +1,7 @@
 'use strict';
 
 var gulp 	  	= require('gulp'),
+	browerFiles = require('main-bower-files'),
 	browserSync = require('browser-sync'),
 	chalk 	  	= require('chalk'),
 	gulpif 	  	= require('gulp-if'),
@@ -48,7 +49,6 @@ var error  = chalk.red.bold,
 
 //server and live reload config
 var serverConfig = {
-	root : 'build',
 	host : 'localhost',
 	port : 3000,
 	livereload: true
@@ -68,8 +68,11 @@ var bowerConfig = {
 ===================================================*/
 
 gulp.task('server', function () {
-	plugins.connect.server(serverConfig);
+
 	console.log(hint('\n --------- Server Started http://localhost:3000 ------------------------>>> \n'));
+	return gulp.src('build')
+	    .pipe(plugins.webserver(serverConfig));
+
 	open('http://localhost:3000');
 });
 
@@ -78,6 +81,7 @@ gulp.task('server', function () {
 ===================================================*/
 
 gulp.task('html', ['html:root'], function() {
+	
 	console.log(hint('\n --------- Running HTML tasks ------------------------------------------>>>'));
 	return gulp.src(['app/**/*.html', 'app/templates/*.html'])
 		.pipe(gulpif(production, plugins.minifyHtml(opts)))
@@ -87,6 +91,7 @@ gulp.task('html', ['html:root'], function() {
 });
 
 gulp.task('html:root', function() {
+	
 	console.log(hint('\n --------- Running HTML root tasks ------------------------------------>>>'));
 	return gulp.src(['app/*.html'])
 		.pipe(gulpif(production, plugins.minifyHtml(opts)))
@@ -99,21 +104,22 @@ gulp.task('html:root', function() {
   		CSS & SASS Tasks -- minify, concat
 =================================================*/
 
-gulp.task('sass', function() {
-	console.log(hint('\n --------- Running SASS tasks ------------------------------------------->>>'));
-    return gulp.src(['app/css/app.scss'])
-	    .pipe(plugins.sass({onError: callback}))
-	    .pipe(plugins.size())
-	    .pipe(gulp.dest(src.sass))
-	    .pipe(plugins.connect.reload());
-});
-
-var callback = function(err) {
+var callback = function(err) {	
 	console.log(error('\n SASS file has error clear it to see changes, see below log ------------->>> \n'));
 	console.log(error(err));
 };
 
+gulp.task('sass', function() {
+	
+	console.log(hint('\n --------- Running SASS tasks ------------------------------------------->>>'));
+    return gulp.src(['app/css/app.scss'])
+	    .pipe(plugins.sass({ Error: callback }))
+	    .pipe(plugins.size())
+	    .pipe(gulp.dest(src.sass));
+});
+
 gulp.task('css', ['sass'], function() {
+	
 	console.log(hint('\n --------- Running CSS tasks -------------------------------------------->>>'));
 	return gulp.src(['app/css/*.css', 'sass/app.css'])
 		.pipe(gulpif(production, plugins.minifyCss()))
@@ -128,6 +134,7 @@ gulp.task('css', ['sass'], function() {
 ===================================================*/
 
 gulp.task('scripts', function() {
+	
 	console.log(hint('\n --------- Running SCRIPT tasks ----------------------------------------->>>'));
 	return gulp.src(['app/js/**/*.js'])
 		.pipe(plugins.jshint('.jshintrc'))
@@ -144,12 +151,13 @@ gulp.task('scripts', function() {
 ===================================================*/
 
 gulp.task('concat-bower', function() {
+	
 	console.log(hint('\n --------- Bower Concat ------------------------------------------------->>> \n'));
 	var jsFilter   = plugins.filter('**/*.js'),
 		cssFilter  = plugins.filter('**/*.css');
 
 	//for js files
-	return plugins.bowerFiles(bowerConfig)
+	return browerFiles(bowerConfig)
 		.pipe(jsFilter)
 		.pipe(plugins.concat('bower.js'))
 		.pipe(gulpif(production, plugins.uglify()))
@@ -172,6 +180,7 @@ gulp.task('concat-bower', function() {
 ===================================================*/
 
 gulp.task('img-min', function () {
+	
 	console.log(hint('\n --------- Image Minification -------------------------------------------->>> \n'));
 	return gulp.src(['app/images/*.*'])
 		.pipe(plugins.imagemin())
@@ -184,26 +193,24 @@ gulp.task('img-min', function () {
 =================================================*/
 
 gulp.task('watch', function() {
+	
 	console.log(hint('\n --------- Watching All Files ------------------------------------------->>> \n'));
-	var html   	= gulp.watch(['app/*.html', 'app/**/*.html'], ['html']),
-		script 	= gulp.watch(['app/js/**/*.js'], ['scripts']),
-		css    	= gulp.watch(['app/css/*.css'], ['css']),
-		sass   	= gulp.watch(['app/css/*.scss'], ['css']),
-		imgMin  = gulp.watch(['app/images/*.*'], ['img-min']),
-		bower   = gulp.watch(['bower_components/**/*.*', 'bower_components/**/*.js', 'bower_components/*.js', 'bower.json'], ['concat-bower']);
+	var HTML   	= gulp.watch(['app/*.html', 'app/**/*.html'], ['html']),
+		JS 		= gulp.watch(['app/js/**/*.js'], ['scripts']),
+		CSS    	= gulp.watch(['app/css/*.css', 'app/css/*.scss'], ['css']),
+		IMG  	= gulp.watch(['app/images/*.*'], ['img-min']),
+		BOWER   = gulp.watch(['bower_components/**/*.*', 'bower.json'], ['concat-bower']);
 
 	var log = function(event) {
 		console.log(change('\n -- File ' + event.path + ' was ' + event.type + ' -->>>'));
 	};
 
 	//on change print file name and event type
-	html.once('change', log);
-	script.once('change', log);
-	css.once('change', log);
-	sass.once('change', log);
-	imgMin.once('change', log);
-	bower.once('change', log);
-
+	HTML.once('change', log);
+	CSS.once('change', log);
+	JS.once('change', log);
+	IMG.once('change', log);
+	BOWER.once('change', log);
 });
 
 /**================================================
@@ -211,25 +218,22 @@ gulp.task('watch', function() {
 ===================================================*/
 
 function cleanFiles(files, log) {
+	
 	console.log(hint('\n --------- Clean:'+ log + 'tasks ------------------------------------------>>> \n'));
-	return gulp.src(files, {read : false })
-	.pipe(plugins.ignore(['node_modules/**', 'bower_components/**']))
-	.pipe(plugins.rimraf());
+	return gulp.src(files, { read: false })
+		.pipe(plugins.ignore(['node_modules/**', 'bower_components/**']))
+		.pipe(plugins.rimraf());
 }
 
 gulp.task('clean', function() {
-	cleanFiles(build.root, 'All Build Files');
-});
-
-gulp.task('cleanZip', function() {
-	cleanFiles(src.zip + '!./build-*.zip', 'Zip Files');
+	cleanFiles(build.root + '/*', 'All Build Files');
 });
 
 /**================================================
   		Browser sync to sync with browser
 ==================================================*/
 
-gulp.task('browserSync', function () {
+gulp.task('browser-sync', function () {
 	browserSync.init([build.root + '/*.html', build.root + '/**/*.html', build.css + '**/*.css', build.js + '**/*.js', build.images + '/*.*'], {
 		server : {
 			baseDir : './build',
@@ -243,11 +247,12 @@ gulp.task('browserSync', function () {
 
 gulp.task('zip', function() {
 	var date = new Date().toDateString();
+	
 	console.log(hint('\n --------- Zipping Build Files ------------------------------------------>>> \n'));
-	return gulp.src([build.root + '/**', build.root + '/**/*'])
-	.pipe(plugins.zip('build-'+ date + '.zip'))
-	.pipe(plugins.size())
-	.pipe(gulp.dest('./zip/'));
+	return gulp.src([build.root + '/**/*'])
+		.pipe(plugins.zip('build -'+ date + '.zip'))
+		.pipe(plugins.size())
+		.pipe(gulp.dest('./zip/'));
 });
 
 /**===============================================
@@ -255,11 +260,13 @@ gulp.task('zip', function() {
 =================================================*/
 
 gulp.task('build', function() {
+	
 	console.log(hint('\n --------- Build Development Mode  -------------------------------------->>> \n'));
 	runSequence('html', 'scripts', 'css', 'concat-bower', 'img-min', 'server', 'watch');
 });
 
 gulp.task('prod', function() {
+	
 	console.log(hint('\n --------- Build Production Mode  --------------------------------------->>> \n'));
 	production = true;
 	runSequence('html', 'scripts', 'css', 'concat-bower', 'img-min', 'server', 'watch');
