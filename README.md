@@ -1,19 +1,20 @@
 # Generator-grep
 
-    A web application tool powered by yeoman and gulp.
+	A web application tool powered by yeoman and gulp.
+
+## Get Started, Install Dependency Packages:
+
+If you dont have node, then go to http://nodejs.org/
+
+```bash
+$ npm install -g yo
+$ npm install -g bower
+```
 
 ## Install Grep:
 
 ```bash
 $ npm install -g generator-grep
-```
-
-## Get Started, Install below dependency packages:
-
-```bash
-$ npm install -g yo
-$ npm install -g bower
-$ npm install -g gulp
 ```
 
 First create a folder:
@@ -22,13 +23,13 @@ First create a folder:
 $ mkdir <folder-name> && cd $_
 ```
 
-Create new application:
+Create new application with:
 
 ```bash
-$ yo grep <app-name>
+$ yo grep <app-name> || yo grep
 ```
 
-Everything is set, npm and bower will automatically install, if not use:
+Everything is set, npm & bower will automatically install, if not:
 
 ```bash
 $ npm install
@@ -44,58 +45,68 @@ $ gulp
 Folder Structure:
 =====================
 
-    1. Copy all your existing files to app folder (or) create your own files in folder structure like below
+	1. Copy all your existing files to app folder (or) create your own files in folder structure like below
 
-        app/           (development dir)
-          -js/         (js files)
-          -js/lib/     (library files)
-          -css/        (both sass and css files & import sass files to app.scss)
-          -images/     (images)
-          -fonts/      (fonts goes here)
+		app/           (development dir)
+		  -js/         (js files)
+		  -js/lib/     (library files)
+		  -css/        (both sass and css files & import sass files to app.scss)
+		  -images/     (images)
+		  -fonts/      (fonts goes here)
 
-          (if your app is using angular, then it will also have below struture)
+		  (if your app is using angular, then it will also have below struture)
 
-          -js/controllers (all controllers files goes here)
-          -js/services
-          -js/factory
-          -js/directives
-          -js/filters
+		  -js/controllers (all controllers files goes here)
+		  -js/services
+		  -js/factory
+		  -js/directives
+		  -js/filters
 
-    2. Enter gulp in terminal to see the magic.
+	2. Enter gulp in terminal to see the magic.
+
 
 Run following command:
 ========================
 
-    1. gulp (dev mode)
-    2. gulp prod (production mode) - To uglify and minify all JS, CSS & HTML files
+	1. gulp (dev mode)
+	2. gulp prod (production mode) - To uglify and minify all JS, CSS & HTML files
+
 
 Add library through bower:
 ======================================
 
-    bower install <lib-name> --save-dev
+	bower install <lib-name> --save-dev
 
-    After installing new library, files will be automatically concat to a single file, no extra work needed.
+	After installing new library, files will automatically concat to bower.css & bower.js, no extra work needed.
+
 
 Manually add library:
 =====================
 
-    eg: modernizr.js
+	eg: modernizr.js
 
-        app/
-          -js/ (add .js files here)
+		app/
+		  -js/ (add .js files here)
+
 
 Seperate gulp commands:
 =========================
 
-    1. gulp<space>zip           -- To create a zip file of your build folder with date
-    2. gulp<space>html          -- To copy html files to build/
-    3. gulp<space>css           -- To convert sass to css and concat css files
-    4. gulp<space>scripts       -- To lint the errors in terminal and concat all js
-    5. gulp<space>img-min       -- To minify all image files
-    6. gulp<space>concat-bower  -- To concat all bower dependencies in one single file
-    7. gulp<space>watch         -- To watch all file changes and do all above tasks
-    8. gulp<space>browserSync   -- To check responsiveness in all browser
-    9. gulp<space>server        -- To start a local server with live reload
+	1. gulp<space>zip           -- To create a zip file of your build folder with date
+	2. gulp<space>html          -- To copy html files to build/
+	3. gulp<space>css           -- To convert sass to css and concat css files
+	4. gulp<space>scripts       -- To lint the errors in terminal and concat all js
+	5. gulp<space>img-min       -- To minify all image files
+	6. gulp<space>concat-bower  -- To concat all bower dependencies in one single file
+	7. gulp<space>watch         -- To watch all file changes and do all above tasks
+	8. gulp<space>browser-sync  -- To check responsiveness in all browser
+	9. gulp<space>server        -- To start a local server with live reload
+
+Clean build & zip commands:
+============================
+	1.gulp<space>clean			-- To delete build folder
+	2.gulp<space>clean-zip		-- To delete zip files
+	
 
 ## License
 
@@ -119,6 +130,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
-
-
-  [1]: www.gokulkrishh.in
