@@ -9,6 +9,7 @@ If you dont have node, then go to http://nodejs.org/
 ```bash
 $ npm install -g yo
 $ npm install -g bower
+$ npm install -g gulp
 ```
 
 ## Install Grep:
@@ -17,7 +18,7 @@ $ npm install -g bower
 $ npm install -g generator-grep
 ```
 
-First create a folder:
+First create a folder and cd into:
 
 ```bash
 $ mkdir <folder-name> && cd $_
@@ -26,7 +27,7 @@ $ mkdir <folder-name> && cd $_
 Create new application with:
 
 ```bash
-$ yo grep <app-name> || yo grep
+$ yo grep <app-name> (or) yo grep
 ```
 
 Everything is set, npm & bower will automatically install, if not:
@@ -46,6 +47,8 @@ Folder Structure:
 =====================
 
 	1. Copy all your existing files to app folder (or) create your own files in folder structure like below
+	
+		Everything inside app/ folder will automatically copies to build/ directory
 
 		app/           (development dir)
 		  -js/         (js files)
@@ -61,6 +64,7 @@ Folder Structure:
 		  -js/factory
 		  -js/directives
 		  -js/filters
+		  -js/app.js
 
 	2. Enter gulp in terminal to see the magic.
 
@@ -68,7 +72,7 @@ Folder Structure:
 Run following command:
 ========================
 
-	1. gulp (dev mode)
+	1. gulp (development mode)
 	2. gulp prod (production mode) - To uglify and minify all JS, CSS & HTML files
 
 
@@ -104,9 +108,9 @@ Seperate gulp commands:
 
 Clean build & zip commands:
 ============================
+
 	1.gulp<space>clean			-- To delete build folder
-	2.gulp<space>clean-zip		-- To delete zip files
-	
+
 
 ## License
 
