@@ -4,8 +4,6 @@
   "description": "",
   "dependencies": {},
   "devDependencies": {
-	"browser-sync": "^1.3.2",
-	"chalk": "*",
 	"gulp": "*",
 	"gulp-concat": "^2.3.4",
 	"gulp-changed": "^0.4.1",
@@ -27,7 +25,9 @@
 	"jshint-stylish": "^0.4.0",
 	"open": "^0.0.5",
 	"run-sequence": "^0.3.6",
-	"main-bower-files": "^1.0.2"
+	"main-bower-files": "^1.0.2",
+	"browser-sync": "^1.3.2",
+	"chalk": "*"
   },
   "engines": {
 	"node": ">=0.10.0"

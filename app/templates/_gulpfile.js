@@ -194,6 +194,7 @@ gulp.task('watch', function() {
 		JS 		= gulp.watch(['app/*.js', 'app/js/**/*.js'], ['scripts']),
 		CSS    	= gulp.watch(['app/*.css', 'app/css/**/*.css'], ['css']),
 		SASS    = gulp.watch(['app/*.scss', 'app/css/**/*.scss'], ['css']),
+		FONTS   = gulp.watch(['app/fonts/*.*', 'app/fonts/**/*.*'], ['fonts']),
 		IMG  	= gulp.watch(['app/images/*.*', 'app/images/**/*.*'], ['img-min']),
 		BOWER   = gulp.watch(['bower_components/**/*.*', 'bower.json'], ['concat-bower']);
 	
@@ -207,6 +208,7 @@ gulp.task('watch', function() {
 	SASS.once('change', log);
 	JS.once('change', log);
 	IMG.once('change', log);
+	FONTS.once('change', log);
 	BOWER.once('change', log);
 });
 
@@ -216,7 +218,7 @@ gulp.task('watch', function() {
 
 function cleanFiles(files, log) {
 	
-	console.log(hint('\n --------- Clean:'+ log + 'tasks ------------------------------------------>>> \n'));
+	console.log(hint('\n --------- Clean:'+ log + ' tasks ------------------------------------------>>> \n'));
 	return gulp.src(files, { read: false })
 		.pipe(plugins.ignore(['node_modules/**', 'bower_components/**']))
 		.pipe(plugins.rimraf());
