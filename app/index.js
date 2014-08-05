@@ -99,7 +99,7 @@ var generator = yeoman.generators.Base.extend({
 					checked : false
 				},
 				{
-					name 	: 'angular-ui',
+					name 	: 'angular-ui-router',
 					value   : 'addAngularUI',
 					checked : false
 				}]
@@ -181,7 +181,7 @@ var generator = yeoman.generators.Base.extend({
 			}
 
 			if (this.angularUI) {
-				bower.dependencies['angular-ui'] = '*';
+				bower.dependencies['angular-ui-router'] = '*';
 			}
 
 		}
