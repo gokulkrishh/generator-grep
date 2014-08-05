@@ -94,7 +94,7 @@ gulp.task('html', function () {
 		CSS & SASS Tasks -- minify, concat
 =================================================*/
 
-var callback = function(err) {  
+var callback = function (err) {
 	console.log(error('\n SASS file has error clear it to see changes, see below log ------------->>> \n'));
 	console.log(error(err));
 };
@@ -218,7 +218,7 @@ gulp.task('watch', function () {
 
 function cleanFiles(files, log) {
 	
-	console.log(hint('\n --------- Clean: '+ log + ' tasks ------------------------------------------>>> \n'));
+	console.log(hint('\n --------- Clean:' + log + ' tasks ------------------------------------------>>> \n'));
 	return gulp.src(files, { read: false })
 		.pipe(plugins.ignore(['node_modules/**', 'bower_components/**']))
 		.pipe(plugins.rimraf());
@@ -248,7 +248,7 @@ gulp.task('zip', function () {
 	
 	console.log(hint('\n --------- Zipping Build Files ------------------------------------------>>> \n'));
 	return gulp.src([build.root + '/**/*'])
-		.pipe(plugins.zip('build - '+ date + '.zip'))
+		.pipe(plugins.zip('build - ' + date + '.zip'))
 		.pipe(plugins.size())
 		.pipe(gulp.dest('./zip/'));
 });

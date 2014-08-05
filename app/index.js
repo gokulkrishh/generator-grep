@@ -1,8 +1,8 @@
 'use strict';
 
 var yeoman = require('yeoman-generator'),
-	yosay  = require('yosay'),
-	chalk  = require('chalk');
+	yosay = require('yosay'),
+	chalk = require('chalk');
 
 
 var generator = yeoman.generators.Base.extend({
@@ -13,8 +13,8 @@ var generator = yeoman.generators.Base.extend({
 
 		//adding flag --ng for angular
 		this.option('ng', {
-			desc     : 'Angular Web application',
-			type     : String,
+			desc : 'Angular Web application',
+			type : String,
 			required : true
 		});
 
@@ -30,8 +30,8 @@ var generator = yeoman.generators.Base.extend({
 		var done = this.async();
 
 		this.prompt({
-			type    : 'input',
-			name    : 'appname',
+			type : 'input',
+			name : 'appname',
 			message : 'Your application name ? ',
 			default : this.appname
 		}, function (ans) {
@@ -44,63 +44,63 @@ var generator = yeoman.generators.Base.extend({
 		var done = this.async();
 
 		var prompts = [{
-			type    : 'checkbox',
-			name    : 'libraries',
+			type : 'checkbox',
+			name : 'libraries',
 			message : 'What else you want to install ? ',
-			choices : [
-				{
-					name    : 'jquery',
-					value   : 'addJquery',
+			choices :
+				[{
+					name : 'jquery',
+					value : 'addJquery',
 					checked : true
 				},
 				{
-					name    : 'bootstrap',
-					value   : 'addBootstrap',
+					name : 'bootstrap',
+					value : 'addBootstrap',
 					checked : false
 				}]
 			},
 			{
-				type    : 'confirm',
-				name    : 'isNg',
+				type : 'confirm',
+				name : 'isNg',
 				message : 'Is your app using angularJS ? ',
 				default : false,
 			},
 			{
 				when : function (ans) {
-					return ans && ans.isNg == true;
+					return ans && ans.isNg === 'true';
 				},
-				type    : 'checkbox',
-				name    : 'ngLibrary',
+				type : 'checkbox',
+				name : 'ngLibrary',
 				message : 'Which libraries you want to install ? ',
-				choices : [
-				{
-					name    : 'angular-route',
-					value   : 'addAngularRoute',
+				choices :
+				[{
+					name : 'angular-route',
+					value : 'addAngularRoute',
 					checked : true
 				},
 				{
-					name    : 'angular-resources',
-					value   : 'addAngularResources',
+					name : 'angular-resources',
+					value : 'addAngularResources',
 					checked : false
 				},
 				{
-					name    : 'angular-cookies',
-					value   : 'addAngularCookies',
+					name : 'angular-cookies',
+					value : 'addAngularCookies',
 					checked : false
 				},
 				{
-					name    : 'angular-sanitize',
-					value   : 'addAngularSanitize',
+					name : 'angular-sanitize',
+					value : 'addAngularSanitize',
 					checked : false
 				},
 				{
-					name    : 'angular-animate',
-					value   : 'addAngularAnimate',
+					name : 'angular-animate',
+					value : 'addAngularAnimate',
 					checked : false
 				},
 				{
-					name    : 'angular-ui-router',
-					value   : 'addAngularUI',
+					name : 'angular-ui-router',
+					value : 'addAngularUI',
 					checked : false
 				}]
 			}];
@@ -111,21 +111,23 @@ var generator = yeoman.generators.Base.extend({
 			}
 
 			function includeNg(hasLib) {
-				if(ans.isNg == false) return false;
+				if (ans.isNg === 'false') { 
+					return false;
+				}
 				return ans && ans.ngLibrary.indexOf(hasLib) !== -1;
 			}
 
-			this.jquery             = include('addJquery');
-			this.bootstrap          = include('addBootstrap');
+			this.jquery = include('addJquery');
+			this.bootstrap = include('addBootstrap');
 
 			if (ans.isNg) {
-				this.angular            = true;
-				this.angularRoute       = includeNg('addAngularRoute');
-				this.angularResources   = includeNg('addAngularResources');
-				this.angularCookies     = includeNg('addAngularCookies');
-				this.angularAnimate     = includeNg('addAngularAnimate');
-				this.angularSanitize    = includeNg('addAngularSanitize');
-				this.angularUI          = includeNg('addAngularUI');
+				this.angular = true;
+				this.angularRoute = includeNg('addAngularRoute');
+				this.angularResources = includeNg('addAngularResources');
+				this.angularCookies = includeNg('addAngularCookies');
+				this.angularAnimate = includeNg('addAngularAnimate');
+				this.angularSanitize = includeNg('addAngularSanitize');
+				this.angularUI = includeNg('addAngularUI');
 			}
 
 			done();
@@ -133,23 +135,23 @@ var generator = yeoman.generators.Base.extend({
 	},
 	bower : function () {
 		var bower = {
-			name         : this.appname,
-			description  : '',
+			name : this.appname,
+			description : '',
 			dependencies : {}
 		};
 
 		var ngVer = '1.2.6';
 
 		if (this.jquery) {
-			bower.dependencies['jquery'] = '*';
+			bower.dependencies.jquery = '*';
 		}
 
 		if (this.bootstrap) {
-			bower.dependencies['bootstrap'] = '*';
+			bower.dependencies.bootstrap = '*';
 		}
 
 		if (this.angular) {
-			bower.dependencies['angular'] = ngVer;
+			bower.dependencies.angular = ngVer;
 
 			//if app is angular
 			this.mkdir('app/templates');
