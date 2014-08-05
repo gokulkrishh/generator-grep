@@ -73,8 +73,9 @@ gulp.task('server', function () {
 
 	console.log(hint('\n --------- Server Started http://localhost:3000 ------------------------>>> \n'));
 	return gulp.src('build')
-		.pipe(plugins.webserver(serverConfig))
-		.pipe(open('http://localhost:3000'));
+		.pipe(plugins.webserver(serverConfig));
+
+	open('http://localhost:3000');
 });
 
 /**================================================

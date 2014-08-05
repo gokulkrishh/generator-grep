@@ -1,35 +1,40 @@
-{
-  "name": "generator-grep",
-  "version": "0.2.0",
-  "description": "Yeoman generator, generator, frontend, gulp, yeoman, bower, npm",
-  "license": "MIT",
-  "keywords": [
-    "yeoman-generator"
-  ],
-  "dependencies": {
-    "yeoman-generator": "^0.17.1",
-    "yosay": "^0.3.0",
-    "chalk": "*"
-  },
-  "devDependencies": {
-    "mocha": "*"
-  },
-  "peerDependencies": {
-    "yo": ">=1.0.0"
-  },
-  "repository": "gokulkrishh/generator-grep",
-  "author": {
-    "name": "Gokulakrishnan",
-    "email": "krishnangokul9@gmail.com",
-    "url": "https://github.com/gokulkrishh"
-  },
-  "engines": {
-    "node": ">=0.10.0"
-  },
-  "scripts": {
-    "test": "mocha"
-  },
-  "files": [
-    "app"
-  ]
+{  
+   "name":"generator-grep",
+   "version":"0.2.1",
+   "description":"Yeoman generator, generator, frontend, gulp, yeoman, bower, npm",
+   "keywords":[  
+      "yeoman-generator",
+      "scaffold",
+      "app",
+      "angular"
+   ],
+   "author":{  
+      "name":"gokulkrishh",
+      "email":"krishnangokul9@gmail.com",
+      "url":"https://github.com/gokulkrishh"
+   },
+   "scripts":{  
+      "test":"mocha"
+   },
+   "files":[  
+      "app"
+   ],
+   "main":"app/index.js",
+   "dependencies":{  
+      "yeoman-generator":"^0.17.1",
+      "yosay":"^0.3.0",
+      "chalk":"*"
+   },
+   "devDependencies":{  
+      "mocha":"*"
+   },
+   "peerDependencies":{  
+      "yo":">=1.0.0"
+   },
+   "repository":"gokulkrishh/generator-grep",
+   "engines":{  
+      "node":">=0.10.0",
+      "npm":">=1.2.10"
+   },
+   "license":"MIT"
 }

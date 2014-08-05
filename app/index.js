@@ -67,7 +67,7 @@ var generator = yeoman.generators.Base.extend({
 			},
 			{
 				when : function (ans) {
-					return ans && ans.isNg === 'true';
+					return ans && ans.isNg === true;
 				},
 				type : 'checkbox',
 				name : 'ngLibrary',
@@ -111,7 +111,7 @@ var generator = yeoman.generators.Base.extend({
 			}
 
 			function includeNg(hasLib) {
-				if (ans.isNg === 'false') { 
+				if (ans.isNg === false) { 
 					return false;
 				}
 				return ans && ans.ngLibrary.indexOf(hasLib) !== -1;
