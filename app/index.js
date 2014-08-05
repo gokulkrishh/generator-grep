@@ -20,7 +20,7 @@ var generator = yeoman.generators.Base.extend({
 
 		//In end install dependencies
 		this.on('end', function () {
-			if(!this.options['skip-install']) {
+			if (!this.options['skip-install']) {
 				this.installDependencies();
 			}
 		});
@@ -30,8 +30,8 @@ var generator = yeoman.generators.Base.extend({
 		var done = this.async();
 
 		this.prompt({
-			type 	: 'input',
-			name 	: 'appname',
+			type    : 'input',
+			name    : 'appname',
 			message : 'Your application name ? ',
 			default : this.appname
 		}, function (ans) {
@@ -44,24 +44,24 @@ var generator = yeoman.generators.Base.extend({
 		var done = this.async();
 
 		var prompts = [{
-			type 	: 'checkbox',
-			name 	: 'libraries',
+			type    : 'checkbox',
+			name    : 'libraries',
 			message : 'What else you want to install ? ',
 			choices : [
 				{
-					name 	: 'jquery',
+					name    : 'jquery',
 					value   : 'addJquery',
 					checked : true
 				},
 				{
-					name 	: 'bootstrap',
+					name    : 'bootstrap',
 					value   : 'addBootstrap',
 					checked : false
 				}]
 			},
 			{
-				type 	: 'confirm',
-				name 	: 'isNg',
+				type    : 'confirm',
+				name    : 'isNg',
 				message : 'Is your app using angularJS ? ',
 				default : false,
 			},
@@ -74,58 +74,58 @@ var generator = yeoman.generators.Base.extend({
 				message : 'Which libraries you want to install ? ',
 				choices : [
 				{
-					name 	: 'angular-route',
+					name    : 'angular-route',
 					value   : 'addAngularRoute',
 					checked : true
 				},
 				{
-					name 	: 'angular-resources',
+					name    : 'angular-resources',
 					value   : 'addAngularResources',
 					checked : false
 				},
 				{
-					name 	: 'angular-cookies',
+					name    : 'angular-cookies',
 					value   : 'addAngularCookies',
 					checked : false
 				},
 				{
-					name 	: 'angular-sanitize',
+					name    : 'angular-sanitize',
 					value   : 'addAngularSanitize',
 					checked : false
 				},
 				{
-					name 	: 'angular-animate',
+					name    : 'angular-animate',
 					value   : 'addAngularAnimate',
 					checked : false
 				},
 				{
-					name 	: 'angular-ui-router',
+					name    : 'angular-ui-router',
 					value   : 'addAngularUI',
 					checked : false
 				}]
 			}];
 
 		this.prompt(prompts, function (ans) {
-			function include (hasLib) {
+			function include(hasLib) {
 				return ans && ans.libraries.indexOf(hasLib) !== -1;
 			}
 
-			function includeNg (hasLib) {
+			function includeNg(hasLib) {
 				if(ans.isNg == false) return false;
 				return ans && ans.ngLibrary.indexOf(hasLib) !== -1;
 			}
 
-			this.jquery    			= include('addJquery');
-			this.bootstrap 			= include('addBootstrap');
+			this.jquery             = include('addJquery');
+			this.bootstrap          = include('addBootstrap');
 
 			if (ans.isNg) {
-				this.angular   			= true;
-				this.angularRoute 		= includeNg('addAngularRoute');
-				this.angularResources 	= includeNg('addAngularResources');
-				this.angularCookies 	= includeNg('addAngularCookies');
-				this.angularAnimate 	= includeNg('addAngularAnimate');
-				this.angularSanitize	= includeNg('addAngularSanitize');
-				this.angularUI 			= includeNg('addAngularUI');
+				this.angular            = true;
+				this.angularRoute       = includeNg('addAngularRoute');
+				this.angularResources   = includeNg('addAngularResources');
+				this.angularCookies     = includeNg('addAngularCookies');
+				this.angularAnimate     = includeNg('addAngularAnimate');
+				this.angularSanitize    = includeNg('addAngularSanitize');
+				this.angularUI          = includeNg('addAngularUI');
 			}
 
 			done();
@@ -133,8 +133,8 @@ var generator = yeoman.generators.Base.extend({
 	},
 	bower : function () {
 		var bower = {
-			name 		 : this.appname,
-			description	 : '',
+			name         : this.appname,
+			description  : '',
 			dependencies : {}
 		};
 
@@ -199,21 +199,21 @@ var generator = yeoman.generators.Base.extend({
 		this.mkdir('bower_components');
 
 		//copy files
-	    this.copy('_index.html', 'app/index.html');
-	    this.copy('_main.js', 'app/js/main.js');
-	    this.copy('_styles.css', 'app/css/styles.css');
-	    this.copy('_app.scss', 'app/css/app.scss');
+		this.copy('_index.html', 'app/index.html');
+		this.copy('_main.js', 'app/js/main.js');
+		this.copy('_styles.css', 'app/css/styles.css');
+		this.copy('_app.scss', 'app/css/app.scss');
 	},
 	configFiles : function () {
 		//copy config files
-	    this.copy('_editorconfig', '.editorconfig');
-	    this.copy('_jshintrc', '.jshintrc');
-	    this.copy('_gitignore', '.gitignore');
-	    this.copy('_bowerrc', '.bowerrc');
+		this.copy('_editorconfig', '.editorconfig');
+		this.copy('_jshintrc', '.jshintrc');
+		this.copy('_gitignore', '.gitignore');
+		this.copy('_bowerrc', '.bowerrc');
 
-	    //copy gulp & pkg.json file
-	    this.copy('_package.json', 'package.json');
-	    this.copy('_gulpfile.js', 'gulpfile.js');
+		//copy gulp & pkg.json file
+		this.copy('_package.json', 'package.json');
+		this.copy('_gulpfile.js', 'gulpfile.js');
 	}
 });
 

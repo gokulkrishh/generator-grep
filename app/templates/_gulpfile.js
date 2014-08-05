@@ -1,14 +1,14 @@
 'use strict';
 
-var gulp 	  	= require('gulp'),
+var gulp = require('gulp'),
 	browerFiles = require('main-bower-files'),
 	browserSync = require('browser-sync'),
-	chalk 	  	= require('chalk'),
-	gulpif 	  	= require('gulp-if'),
-	open 		= require('open'),
+	chalk = require('chalk'),
+	gulpif = require('gulp-if'),
+	open = require('open'),
 	runSequence = require('run-sequence'),
-	stylish   	= require('jshint-stylish'),
-	plugins		= require('gulp-load-plugins')();
+	stylish = require('jshint-stylish'),
+	plugins = require('gulp-load-plugins')();
 
 //src path
 var src = {
@@ -24,7 +24,7 @@ var src = {
 };
 
 //build path
-var	build = {
+var build = {
 	root : 'build',
 	css : 'build/css',
 	js : 'build/js',
@@ -39,14 +39,14 @@ var production = false;
 var opts = {
 	comments: false,
 	quotes: true,
-	spare:true,
+	spare: true,
 	empty: true,
-	cdata:true
+	cdata: true
 };
 
 // chalk config
-var error  = chalk.red.bold,
-	hint   = chalk.yellow.bold,
+var error = chalk.red.bold,
+	hint = chalk.yellow.bold,
 	change = chalk.red;
 
 //server and live reload config
@@ -59,29 +59,29 @@ var serverConfig = {
 //bower config
 var bowerConfig = {
 	paths: {
-	    bowerDirectory: src.bower,
-	    bowerrc: '.bowerrc',
-	    bowerJson: 'bower.json'
+		bowerDirectory: src.bower,
+		bowerrc: '.bowerrc',
+		bowerJson: 'bower.json'
 	}
 };
 
 /**================================================
-  		Server & livereload using gulp-connect
+		Server & livereload using gulp-connect
 ===================================================*/
 
 gulp.task('server', function () {
 
 	console.log(hint('\n --------- Server Started http://localhost:3000 ------------------------>>> \n'));
 	return gulp.src('build')
-	    .pipe(plugins.webserver(serverConfig))
-	    .pipe(open('http://localhost:3000'));
+		.pipe(plugins.webserver(serverConfig))
+		.pipe(open('http://localhost:3000'));
 });
 
 /**================================================
-  		HTML -- minify html to build
+		HTML -- minify html to build
 ===================================================*/
 
-gulp.task('html', function() {
+gulp.task('html', function () {
 	
 	console.log(hint('\n --------- Running HTML tasks ------------------------------------------>>>'));
 	return gulp.src([src.root + '/*.html', src.root + '/**/*.html'])
@@ -91,24 +91,24 @@ gulp.task('html', function() {
 });
 
 /**===============================================
-  		CSS & SASS Tasks -- minify, concat
+		CSS & SASS Tasks -- minify, concat
 =================================================*/
 
-var callback = function(err) {	
+var callback = function(err) {  
 	console.log(error('\n SASS file has error clear it to see changes, see below log ------------->>> \n'));
 	console.log(error(err));
 };
 
-gulp.task('sass', function() {
+gulp.task('sass', function () {
 	
 	console.log(hint('\n --------- Running SASS tasks ------------------------------------------->>>'));
-    return gulp.src([src.css + '/app.scss'])
-	    .pipe(plugins.sass({ onError: callback }))
-	    .pipe(plugins.size())
-	    .pipe(gulp.dest(src.sass));
+	return gulp.src([src.css + '/app.scss'])
+		.pipe(plugins.sass({ onError: callback }))
+		.pipe(plugins.size())
+		.pipe(gulp.dest(src.sass));
 });
 
-gulp.task('fonts', function() {
+gulp.task('fonts', function () {
 	
 	console.log(hint('\n --------- Running Fonts tasks -------------------------------------------->>>'));
 	return gulp.src([src.fonts + '/*.*', src.fonts + '/**/*.*'])
@@ -116,7 +116,7 @@ gulp.task('fonts', function() {
 		.pipe(gulp.dest(build.fonts));
 });
 
-gulp.task('css', ['sass', 'fonts'], function() {
+gulp.task('css', ['sass', 'fonts'], function () {
 	
 	console.log(hint('\n --------- Running CSS tasks -------------------------------------------->>>'));
 	return gulp.src([src.css + '/**/*.css', src.sass + '/app.css'])
@@ -127,10 +127,10 @@ gulp.task('css', ['sass', 'fonts'], function() {
 });
 
 /**================================================
-  		Script Tasks -- js hint & uglify & concat
+		Script Tasks -- js hint & uglify & concat
 ===================================================*/
 
-gulp.task('scripts', function() {
+gulp.task('scripts', function () {
 	
 	console.log(hint('\n --------- Running SCRIPT tasks ----------------------------------------->>>'));
 	return gulp.src([src.js + '/*.js', src.js + '/**/*.js'])
@@ -143,10 +143,10 @@ gulp.task('scripts', function() {
 });
 
 /**================================================
-  		Concat - all bower packages
+		Concat - all bower packages
 ===================================================*/
 
-gulp.task('concat-bower', function() {
+gulp.task('concat-bower', function () {
 	
 	console.log(hint('\n --------- Bower Concat ------------------------------------------------->>> \n'));
 	var jsFilter   = plugins.filter('**/*.js'),
@@ -171,7 +171,7 @@ gulp.task('concat-bower', function() {
 });
 
 /**================================================
-  			Images minification
+			Images minification
 ===================================================*/
 
 gulp.task('img-min', function () {
@@ -184,21 +184,21 @@ gulp.task('img-min', function () {
 });
 
 /**===============================================
-  		Watch -- all files
+		Watch -- all files
 =================================================*/
 
-gulp.task('watch', function() {
+gulp.task('watch', function () {
 	
 	console.log(hint('\n --------- Watching All Files ------------------------------------------->>> \n'));
-	var HTML   	= gulp.watch(['app/*.html', 'app/**/*.html'], ['html']),
-		JS 		= gulp.watch(['app/*.js', 'app/js/**/*.js'], ['scripts']),
-		CSS    	= gulp.watch(['app/*.css', 'app/css/**/*.css'], ['css']),
+	var HTML    = gulp.watch(['app/*.html', 'app/**/*.html'], ['html']),
+		JS      = gulp.watch(['app/*.js', 'app/js/**/*.js'], ['scripts']),
+		CSS     = gulp.watch(['app/*.css', 'app/css/**/*.css'], ['css']),
 		SASS    = gulp.watch(['app/*.scss', 'app/css/**/*.scss'], ['css']),
 		FONTS   = gulp.watch(['app/fonts/*.*', 'app/fonts/**/*.*'], ['fonts']),
-		IMG  	= gulp.watch(['app/images/*.*', 'app/images/**/*.*'], ['img-min']),
+		IMG     = gulp.watch(['app/images/*.*', 'app/images/**/*.*'], ['img-min']),
 		BOWER   = gulp.watch(['bower_components/**/*.*', 'bower.json'], ['concat-bower']);
 	
-	var log = function(event) {
+	var log = function (event) {
 		console.log(change('\n -- File ' + event.path + ' was ' + event.type + ' -->>>'));
 	};
 
@@ -213,57 +213,57 @@ gulp.task('watch', function() {
 });
 
 /**================================================
-  		Clean - remove files and folder in build
+		Clean - remove files and folder in build
 ===================================================*/
 
 function cleanFiles(files, log) {
 	
-	console.log(hint('\n --------- Clean:'+ log + ' tasks ------------------------------------------>>> \n'));
+	console.log(hint('\n --------- Clean: '+ log + ' tasks ------------------------------------------>>> \n'));
 	return gulp.src(files, { read: false })
 		.pipe(plugins.ignore(['node_modules/**', 'bower_components/**']))
 		.pipe(plugins.rimraf());
 }
 
-gulp.task('clean', function() {
+gulp.task('clean', function () {
 	cleanFiles(build.root + '/*', 'All Build Files');
 });
 
 /**================================================
-  		Browser sync to sync with browser
+		Browser sync to sync with browser
 ==================================================*/
 
 gulp.task('browser-sync', function () {
-	browserSync.init([build.root + '*/*.*', build.root + '**/*.*'], 
+	browserSync.init([build.root + '*/*.*', build.root + '**/*.*'],
 	{
 		server : { baseDir : './build' }
 	});
 });
 
 /**================================================
-  		Zip all build files with date
+		Zip all build files with date
 ==================================================*/
 
-gulp.task('zip', function() {
+gulp.task('zip', function () {
 	var date = new Date().toDateString();
 	
 	console.log(hint('\n --------- Zipping Build Files ------------------------------------------>>> \n'));
 	return gulp.src([build.root + '/**/*'])
-		.pipe(plugins.zip('build -'+ date + '.zip'))
+		.pipe(plugins.zip('build - '+ date + '.zip'))
 		.pipe(plugins.size())
 		.pipe(gulp.dest('./zip/'));
 });
 
 /**===============================================
-  		Gulp build Tasks - dev, production
+		Gulp build Tasks - dev, production
 =================================================*/
 
-gulp.task('build', function() {
+gulp.task('build', function () {
 	
 	console.log(hint('\n --------- Build Development Mode  -------------------------------------->>> \n'));
 	runSequence('html', 'scripts', 'css', 'concat-bower', 'img-min', 'server', 'watch');
 });
 
-gulp.task('prod', function() {
+gulp.task('prod', function () {
 	
 	console.log(hint('\n --------- Build Production Mode  --------------------------------------->>> \n'));
 	production = true;
@@ -272,7 +272,7 @@ gulp.task('prod', function() {
 
 
 /**==============================================
-  		Gulp Default Tasks -- build
+		Gulp Default Tasks -- build
 =================================================*/
 
 gulp.task('default', ['build']);
