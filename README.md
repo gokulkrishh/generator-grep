@@ -81,7 +81,7 @@ Add library through bower:
 
 	bower install <lib-name> --save-dev
 
-	After installing new library, files will automatically concat to bower.css & bower.js, no extra work needed.
+	After installing new library, files will be automatically concat to bower.css & bower.js, no extra work needed.
 
 
 Manually add library:
@@ -101,7 +101,7 @@ Seperate gulp commands:
 	3. gulp<space>css           -- To convert sass to css and concat css files
 	4. gulp<space>scripts       -- To lint the errors in terminal and concat all js
 	5. gulp<space>img-min       -- To minify all image files
-	6. gulp<space>concat-bower  -- To concat all bower dependencies in one single file
+	6. gulp<space>concat-bower  -- To concat all bower dependencies to a single file
 	7. gulp<space>watch         -- To watch all file changes and do all above tasks
 	8. gulp<space>browser-sync  -- To check responsiveness in all browser
 	9. gulp<space>server        -- To start a local server with live reload
@@ -109,7 +109,7 @@ Seperate gulp commands:
 Clean build & zip commands:
 ============================
 
-	1.gulp<space>clean			-- To delete build folder
+	1.gulp<space>clean	-- To delete build folder
 
 
 ## License
