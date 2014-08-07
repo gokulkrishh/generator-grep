@@ -53,7 +53,8 @@ var error = chalk.red.bold,
 var serverConfig = {
 	host : 'localhost',
 	port : 3000,
-	livereload: true
+	livereload: true,
+	open: true
 };
 
 //bower config
@@ -71,14 +72,9 @@ var bowerConfig = {
 
 gulp.task('server', function () {
 
-	console.log(hint('\n --------- Server Started http://localhost:3000 ------------------------>>> \n'));
-	var stream =  gulp.src('build')
+	console.log(hint('\n --------- Server Started http://localhost:'+ serverConfig.port +' ------------------------>>> \n'));
+	return gulp.src('build')
 		.pipe(plugins.webserver(serverConfig));
-
-	setTimeout(function () {
-		open('http://localhost:3000');
-	}, 500);
-	return stream;
 });
 
 /**================================================

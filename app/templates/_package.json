@@ -7,7 +7,7 @@
 	"gulp": "*",
 	"gulp-concat": "^2.3.4",
 	"gulp-changed": "^0.4.1",
-	"gulp-webserver": "^0.5.0",
+	"gulp-webserver": "^0.6.0",
 	"gulp-filter": "^1.0.0",
 	"gulp-if": "^1.2.4",
 	"gulp-ignore": "^1.2.0",
