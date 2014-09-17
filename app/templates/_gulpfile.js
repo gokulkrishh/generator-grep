@@ -82,7 +82,7 @@ gulp.task('server', function () {
 ===================================================*/
 
 gulp.task('html', function () {
-	
+
 	console.log(hint('\n --------- Running HTML tasks ------------------------------------------>>>'));
 	return gulp.src([src.root + '/*.html', src.root + '/**/*.html'])
 		.pipe(gulpif(production, plugins.minifyHtml(opts)))
@@ -100,7 +100,7 @@ var callback = function (err) {
 };
 
 gulp.task('sass', function () {
-	
+
 	console.log(hint('\n --------- Running SASS tasks ------------------------------------------->>>'));
 	return gulp.src([src.css + '/app.scss'])
 		.pipe(plugins.sass({ onError: callback }))
@@ -109,7 +109,7 @@ gulp.task('sass', function () {
 });
 
 gulp.task('fonts', function () {
-	
+
 	console.log(hint('\n --------- Running Fonts tasks -------------------------------------------->>>'));
 	return gulp.src([src.fonts + '/*.*', src.fonts + '/**/*.*'])
 		.pipe(plugins.size())
@@ -117,7 +117,7 @@ gulp.task('fonts', function () {
 });
 
 gulp.task('css', ['sass', 'fonts'], function () {
-	
+
 	console.log(hint('\n --------- Running CSS tasks -------------------------------------------->>>'));
 	return gulp.src([src.css + '/**/*.css', src.sass + '/app.css'])
 		.pipe(gulpif(production, plugins.minifyCss()))
@@ -131,7 +131,7 @@ gulp.task('css', ['sass', 'fonts'], function () {
 ===================================================*/
 
 gulp.task('scripts', function () {
-	
+
 	console.log(hint('\n --------- Running SCRIPT tasks ----------------------------------------->>>'));
 	return gulp.src([src.js + '/*.js', src.js + '/**/*.js'])
 		.pipe(plugins.jshint('.jshintrc'))
@@ -147,7 +147,7 @@ gulp.task('scripts', function () {
 ===================================================*/
 
 gulp.task('concat-bower', function () {
-	
+
 	console.log(hint('\n --------- Bower Concat ------------------------------------------------->>> \n'));
 	var jsFilter   = plugins.filter('**/*.js'),
 		cssFilter  = plugins.filter('**/*.css');
@@ -175,7 +175,7 @@ gulp.task('concat-bower', function () {
 ===================================================*/
 
 gulp.task('img-min', function () {
-	
+
 	console.log(hint('\n --------- Image Minification -------------------------------------------->>> \n'));
 	return gulp.src([src.images + '/*.*', src.images + '/**/*.*'])
 		.pipe(plugins.imagemin())
@@ -188,17 +188,23 @@ gulp.task('img-min', function () {
 =================================================*/
 
 gulp.task('watch', function () {
-	
+
 	console.log(hint('\n --------- Watching All Files ------------------------------------------->>> \n'));
-	var HTML    = gulp.watch(['app/*.html', 'app/**/*.html'], ['html']),
+	var HTML  = gulp.watch(['app/*.html', 'app/**/*.html'], ['html']),
 		JS      = gulp.watch(['app/*.js', 'app/js/**/*.js'], ['scripts']),
 		CSS     = gulp.watch(['app/*.css', 'app/css/**/*.css'], ['css']),
 		SASS    = gulp.watch(['app/*.scss', 'app/css/**/*.scss'], ['css']),
 		FONTS   = gulp.watch(['app/fonts/*.*', 'app/fonts/**/*.*'], ['fonts']),
 		IMG     = gulp.watch(['app/images/*.*', 'app/images/**/*.*'], ['img-min']),
 		BOWER   = gulp.watch(['bower_components/**/*.*', 'bower.json'], ['concat-bower']);
-	
+
 	var log = function (event) {
+		if (event.type == 'deleted') {
+			runSequence('clean');
+			setTimeout(function () {
+				runSequence('html', 'scripts', 'css', 'watch');
+			}, 500);
+		}
 		console.log(change('\n -- File ' + event.path + ' was ' + event.type + ' -->>>'));
 	};
 
@@ -217,7 +223,7 @@ gulp.task('watch', function () {
 ===================================================*/
 
 function cleanFiles(files, log) {
-	
+
 	console.log(hint('\n --------- Clean:' + log + ' tasks ------------------------------------------>>> \n'));
 	return gulp.src(files, { read: false })
 		.pipe(plugins.ignore(['node_modules/**', 'bower_components/**']))
@@ -245,7 +251,7 @@ gulp.task('browser-sync', function () {
 
 gulp.task('zip', function () {
 	var date = new Date().toDateString();
-	
+
 	console.log(hint('\n --------- Zipping Build Files ------------------------------------------>>> \n'));
 	return gulp.src([build.root + '/**/*'])
 		.pipe(plugins.zip('build - ' + date + '.zip'))
@@ -258,13 +264,13 @@ gulp.task('zip', function () {
 =================================================*/
 
 gulp.task('build', function () {
-	
+
 	console.log(hint('\n --------- Build Development Mode  -------------------------------------->>> \n'));
 	runSequence('html', 'scripts', 'css', 'concat-bower', 'img-min', 'server', 'watch');
 });
 
 gulp.task('prod', function () {
-	
+
 	console.log(hint('\n --------- Build Production Mode  --------------------------------------->>> \n'));
 	production = true;
 	runSequence('html', 'scripts', 'css', 'concat-bower', 'img-min', 'server', 'watch');
