@@ -1,38 +1,38 @@
-{  
+{
    "name":"generator-grep",
-   "version":"0.2.2",
+   "version":"0.2.3",
    "description":"Yeoman generator, generator, frontend, gulp, yeoman, bower, npm",
-   "keywords":[  
+   "keywords":[
       "yeoman-generator",
       "scaffold",
       "app",
       "angular"
    ],
-   "author":{  
+   "author":{
       "name":"gokulkrishh",
       "email":"krishnangokul9@gmail.com",
       "url":"https://github.com/gokulkrishh"
    },
-   "scripts":{  
+   "scripts":{
       "test":"mocha"
    },
-   "files":[  
+   "files":[
       "app"
    ],
    "main":"app/index.js",
-   "dependencies":{  
+   "dependencies":{
       "yeoman-generator":"^0.17.1",
       "yosay":"^0.3.0",
       "chalk":"*"
    },
-   "devDependencies":{  
+   "devDependencies":{
       "mocha":"*"
    },
-   "peerDependencies":{  
+   "peerDependencies":{
       "yo":">=1.0.0"
    },
    "repository":"gokulkrishh/generator-grep",
-   "engines":{  
+   "engines":{
       "node":">=0.10.0",
       "npm":">=1.2.10"
    },
