@@ -1,4 +1,5 @@
 # Generator-grep [![Code Climate](https://codeclimate.com/github/gokulkrishh/generator-grep/badges/gpa.svg)](https://codeclimate.com/github/gokulkrishh/generator-grep)
+[![devDependency Status](https://david-dm.org/gokulkrishh/generator-grep/dev-status.svg)](https://david-dm.org/gokulkrishh/generator-grep#info=devDependencies)
 
 	A web application tool powered by yeoman and gulp.
 
