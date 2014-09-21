@@ -1,5 +1,5 @@
-# Generator-grep [![Code Climate](https://codeclimate.com/github/gokulkrishh/generator-grep/badges/gpa.svg)](https://codeclimate.com/github/gokulkrishh/generator-grep)
-[![devDependency Status](https://david-dm.org/gokulkrishh/generator-grep/dev-status.svg)](https://david-dm.org/gokulkrishh/generator-grep#info=devDependencies)
+# Generator-grep [![Code Climate](https://codeclimate.com/github/gokulkrishh/generator-grep/badges/gpa.svg)](https://codeclimate.com/github/gokulkrishh/generator-grep) 
+[![Dependency Status](https://david-dm.org/gokulkrishh/generator-grep/status.svg)](https://david-dm.org/gokulkrishh/generator-grep#info=Dependencies) [![devDependency Status](https://david-dm.org/gokulkrishh/generator-grep/dev-status.svg)](https://david-dm.org/gokulkrishh/generator-grep#info=devDependencies)
 
 	A web application tool powered by yeoman and gulp.
 
