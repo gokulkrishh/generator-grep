@@ -22,7 +22,7 @@
    "main":"app/index.js",
    "dependencies":{
       "yeoman-generator":"^0.17.1",
-      "yosay":"^0.3.0",
+      "yosay":"^1.0.0",
       "chalk":"*"
    },
    "devDependencies":{
