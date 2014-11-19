@@ -62,7 +62,7 @@ var generator = yeoman.generators.Base.extend({
 			{
 				type : 'confirm',
 				name : 'isNg',
-				message : 'Is your app using angularJS ? ',
+				message : 'Is your app using angularJS(v1.3.3) ? ',
 				default : false,
 			},
 			{
@@ -140,7 +140,7 @@ var generator = yeoman.generators.Base.extend({
 			dependencies : {}
 		};
 
-		var ngVer = '1.2.6';
+		var ngVer = '1.3.3';
 
 		if (this.jquery) {
 			bower.dependencies.jquery = '*';
